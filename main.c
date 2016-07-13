@@ -16,6 +16,7 @@
 
 
 void initIO(void) {
+	//uint8_t i = 0;
     for (uint8_t i = 0; i < 6; i++) {
         DDRB |= (1 << i);
     }
@@ -31,6 +32,7 @@ void eShiftOut(volatile uint8_t *DS_PORT, uint8_t DS_PIN, volatile uint8_t *STCP
                volatile uint8_t *SHCP_PORT, uint8_t SHCP_PIN, uint8_t dataOut) { // AVR SHIFTOUT FUNCTION MADE BY ME HANDLING MSB
     *DS_PORT = (0 << DS_PIN);
     *SHCP_PORT = (0 << SHCP_PIN); // clock pin
+	//uint8_t i = 0;
     for (uint8_t i = 0; i < 8; i++) {
         *SHCP_PORT = (0 << SHCP_PIN);
         if (dataOut & (1 << i)) {
@@ -63,6 +65,7 @@ void mPoint(uint8_t x, uint8_t y) { // will light up an LED on the matrix at the
 }
 
 void displayChar(uint8_t charMap[8]) {
+	//uint8_t i = 0;
     for (uint8_t i = 0; i < 8; i++) {
         uint8_t row = 255;
         row &= ~(1 << (7 - i)); // to ensure MSB is processed first as well as flipping bits in the row to 0 so the columns being displayed are displayed on the correct row
@@ -89,8 +92,9 @@ int main(void) {
             TCNT0 = 0;
             if (overflows == 25) {
                 overflows = 0;
+				//uint8_t i = 0;
                 for (uint8_t i = 0; i < 8; i++) {
-                    //E[i] &= ~(1 << letter);
+                    E[i] &= ~(1 << letter);
                 }
                 letter--;
             }
